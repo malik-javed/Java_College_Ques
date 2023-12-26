@@ -17,6 +17,13 @@ public class FileOutputS{
             String str = "Malik Javed Written from FileOutputStream";
 
             fos.write(str.getBytes());
+            
+            // Writing in the form of Array 
+            // byte b[] = str.getBytes();
+            // for (byte x : b) {
+            //     fos.write(x);
+            // }
+
 
             fos.close();
 
