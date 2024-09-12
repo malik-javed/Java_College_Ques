@@ -1,3 +1,8 @@
+// 153:
+// Number of digits = 3.
+// 1^3 + 5^3 + 3^3 =1+125+27=153.
+// Hence, 153 is an Armstrong number.
+
 public class Armstrong {
     public static void main(String[] args) {
         int num = 67;
