@@ -1,3 +1,5 @@
+import java.util.LinkedList;;
+
 public class LinkListOperation {
     private int size;    
 
@@ -6,7 +8,7 @@ public class LinkListOperation {
         this.size =0; // Initializing size with zero
     }
 
-    class Node{
+    static class Node{
         String data;
         Node next;
         
@@ -19,7 +21,7 @@ public class LinkListOperation {
 
         //Operations on LinkedList
 
-        // 1-> Add at first postion
+        // 1-> Add at first position
 
         public void addFirst(String data)
         {
@@ -120,14 +122,147 @@ public class LinkListOperation {
             return size;
         }
 
+        // delete at specific postion
+        public String deleteAT(int index)
+        {
+            Node prevNode = get(index-1);
+            String value = prevNode.next.data;
+
+            prevNode.next = prevNode.next.next;
+
+            
+            
+            return value;
+        }
+
+        //get value/node  from the given index
+        public Node get(int index){
+            Node tempNode = head;
+
+            for(int i=0;i<index;i++)
+            {
+                tempNode = tempNode.next;
+            }
+            return tempNode;
+        }
+
+        // 
+        
+        //another way
+        public void reverse()
+        {
+            Node prev = null;
+            Node curr = head;
+
+            while(curr!=null)
+            {
+                Node next = curr.next;
+                curr.next = prev;
+
+                //updates nodes
+                prev = curr;
+                curr = next;
+            }
+            head = prev;
+        }
+
+        public Node createCycleLinkedList() {
+            // Step 1: Create nodes
+            Node node1 = new Node("Hello");
+            Node node2 = new Node("this");
+            Node node3 = new Node("is");
+            Node node4 = new Node("a");
+            Node node5 = new Node("cycle");
+    
+            // Step 2: Link nodes together
+            node1.next = node2;
+            node2.next = node3;
+            node3.next = node4;
+            node4.next = node5;
+    
+            // Step 3: Create a cycle by pointing the last node to node3
+            node5.next = node3;  // This creates a cycle from node 5 back to node 3
+    
+            // Return the head of the list
+            head = node1;
+            return head;
+        }
+
+        public boolean isCycle()
+        {
+            if (head == null || head.next == null) {
+                System.out.println("Empty");
+            }
+            Node slow=head, fast=head;
+
+            while(fast!=null && fast.next!=null)
+            {
+                slow=slow.next;
+                fast=fast.next.next;
+
+                if(slow==fast)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void removeCycle()
+        {
+            if (head == null || head.next == null) {
+                System.out.println("Empty");
+            }
+            Node slow=head, fast=head;
+
+            while(fast!=null && fast.next!=null)
+            {
+                slow=slow.next;
+                fast=fast.next.next;
+
+                if(slow==fast)
+                {
+                    slow.next=null;
+                    break;
+                    // return true;
+                }
+            }
+            System.out.println("Cycle removed");
+            
+        }
+
     public static void main(String[] args) {
         LinkListOperation ll = new LinkListOperation();
-        ll.addFirst("Malik");
-        ll.addLast("Javed");
-        System.out.println(ll.getSize());
+        // ll.addFirst("Malik");
+        // ll.addLast("Javed");
+        // ll.addLast("MCA");
+        // ll.addLast("RK");
+
+        // ll.deleteAT(2);
+        // ll.deleteAT();
+        // System.out.println(ll.get(2));
+        // System.out.println(ll.getSize());
         // ll.deleteFirst();
         // ll.deleteLast();
+        // ll.printList();
+        
+        // ll.reverse();
+        ll.createCycleLinkedList();
+        
+        if(ll.isCycle())
+        {
+            System.out.println("Cycle present");
+        }
+        else{
+            System.out.println("cycle not present");
+        }
+
+        ll.removeCycle();
+        
+        
         ll.printList();
+
+        // ll.printList();
 
     }
 }
